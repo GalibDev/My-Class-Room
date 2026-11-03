@@ -26,4 +26,11 @@ Verified locally on 4 November 2026.
 
 Firebase Authentication, Firestore subscriptions and deployed security rules have not been exercised against a live project because no project configuration was supplied. The app currently opens in demo mode. Run the Firebase setup in README before using real attendance records.
 
-Known scope: one classroom, three predefined subjects, and institution-managed roll assignments. No automated roll uniqueness check or multi-classroom enrollment flow. Vite reports a large JavaScript bundle warning because the Firebase client is included; the build succeeds.
+Known scope: one classroom, nine courses and labs from the supplied college routine, and institution-managed roll assignments. No automated roll uniqueness check or multi-classroom enrollment flow. Vite reports a large JavaScript bundle warning because the Firebase client is included; the build succeeds.
+
+## College routine update
+
+- Four automated routine tests pass (npm test).
+- Replaced placeholder subjects with CSE-2201 through CSE-2205, CSE-2211, CSE-2212, CSE-2213 and CSE-2216.
+- Real teacher names appear in subjects, weekly routine, attendance metadata, PDF present cards and CSV exports.
+- Firebase rules updated for the nine real course IDs; live Firebase deployment still requires project configuration.

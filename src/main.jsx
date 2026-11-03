@@ -20,6 +20,7 @@ import {
 import { auth, db, configured } from "./firebase";
 import "./style.css";
 import Classroom from "./Classroom";
+import { subjects } from "./routine";
 
 const today = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Asia/Dhaka",
@@ -27,35 +28,6 @@ const today = new Intl.DateTimeFormat("en-CA", {
   month: "2-digit",
   day: "2-digit",
 }).format(new Date());
-const subjects = [
-  {
-    id: "cse201",
-    name: "Data Structures",
-    code: "CSE 201",
-    time: "09:00 – 10:30",
-    room: "Room 402",
-    color: "green",
-    abbr: "DS",
-  },
-  {
-    id: "cse203",
-    name: "Discrete Mathematics",
-    code: "CSE 203",
-    time: "11:00 – 12:30",
-    room: "Room 305",
-    color: "purple",
-    abbr: "DM",
-  },
-  {
-    id: "cse205",
-    name: "Digital Logic Design",
-    code: "CSE 205",
-    time: "14:00 – 15:30",
-    room: "Lab 201",
-    color: "orange",
-    abbr: "DL",
-  },
-];
 const names = [
   "Aarav Rahman",
   "Afsana Ahmed",
@@ -78,7 +50,7 @@ const seedStudents = names.map((name, i) => ({
 }));
 const sessionId = (subject, date) => `${subject}_${date}`;
 export default function App() {
-  const [subject, setSubject] = useState("cse201"),
+  const [subject, setSubject] = useState("cse2201"),
     [date, setDate] = useState(today),
     [notice, setNotice] = useState(""),
     [modal, setModal] = useState(null),
@@ -102,10 +74,10 @@ export default function App() {
         : JSON.parse(localStorage.getItem("mcr-records") || "null") ||
           Object.fromEntries(
             seedStudents.slice(0, 8).map((s) => [
-              `${sessionId("cse201", today)}_${s.id}`,
+              `${sessionId("cse2201", today)}_${s.id}`,
               {
                 studentId: s.id,
-                subject: "cse201",
+                subject: "cse2201",
                 date: today,
                 status: "present",
               },
@@ -229,10 +201,11 @@ export default function App() {
   }
   function download() {
     const lines = [
-      ["Date", "Subject", "Roll", "Name", "Status"],
+      ["Date", "Subject", "Teacher", "Roll", "Name", "Status"],
       ...students.map((s) => [
         date,
         sub.name,
+        sub.teacher,
         s.roll,
         s.name,
         status(s.id) || "unmarked",

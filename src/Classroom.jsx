@@ -27,6 +27,8 @@ import {
 } from "lucide-react";
 
 import "./purple.css";
+import { classesFor, subjectTime } from "./routine";
+import RoutineView from "./RoutineView";
 
 const initials = (name) =>
   name
@@ -68,6 +70,7 @@ export default function Classroom({
     [selected, setSelected] = useState([]),
     [rollText, setRollText] = useState(""),
     [busy, setBusy] = useState(false);
+  const dailyClasses = classesFor(date);
   const sub = subjects.find((s) => s.id === subject),
     absents = students.filter((s) => status(s.id) === "absent").length;
   const dateText = new Date(date + "T12:00:00").toLocaleDateString("en-US", {
@@ -141,9 +144,10 @@ export default function Classroom({
     pdf.setFontSize(10);
     [
       `${sub.code}: ${sub.name}`,
+      `Teacher: ${sub.teacher}`,
       "Section: A",
       `Date: ${dateText}`,
-      `Time: ${sub.time}`,
+      `Time: ${subjectTime(sub.id, date)}`,
     ].forEach((t) => {
       pdf.text(t, 16, y);
       y += 7;
@@ -204,13 +208,14 @@ export default function Classroom({
           <span className="p-subject-copy">
             <strong>{s.code}</strong>
             <span>{s.name}</span>
+            <span className="r-teacher">{s.teacher}</span>
             <span className={"p-badge " + (active ? "is-live" : "is-off")}>
               <i />
               {active ? "Attendance ON" : "OFF"}
             </span>
             <small>
               <Clock3 size={13} />
-              {s.time}
+              {s.time || subjectTime(s.id, date)}
             </small>
           </span>
         </button>
@@ -296,7 +301,7 @@ export default function Classroom({
                       ? "Class Representative (CR)"
                       : "Welcome to your classroom"}
                   </strong>
-                  <p>CSE 3rd Year · Section A</p>
+                  <p>CSE · 2nd Year · 2nd Semester</p>
                 </div>
                 <span className="p-wave" />
                 <span className="p-wave wave-two" />
@@ -333,13 +338,22 @@ export default function Classroom({
               </button>
               <div className="p-section-heading">
                 <h2>Today’s Classes</h2>
-                <button onClick={() => go("Subjects")}>View All</button>
+                <button onClick={() => go("Routine")}>Weekly Routine</button>
               </div>
               <div className="p-date-line">
                 <CalendarDays size={14} />
                 {dateText}
               </div>
-              <div className="p-home-subjects">{subjects.map(subjectCard)}</div>
+              <div className="p-home-subjects">
+                {dailyClasses.filter((s) => !s.extra).map(subjectCard)}
+                {!dailyClasses.length && (
+                  <div className="p-empty">
+                    <CalendarDays size={28} />
+                    <h3>No classes scheduled</h3>
+                    <p>Friday and Saturday are free in your routine.</p>
+                  </div>
+                )}
+              </div>
               <div className="p-home-note">
                 <CheckCheck size={20} />
                 <div>
@@ -374,7 +388,9 @@ export default function Classroom({
                         ? "Present Card"
                         : screen === "History"
                           ? "Attendance History"
-                          : "My Profile"}
+                          : screen === "Routine"
+                            ? "Weekly Routine"
+                            : "My Profile"}
                 </h1>
                 <p>
                   {screen === "Subjects"
@@ -385,7 +401,9 @@ export default function Classroom({
                         ? "Every class, kept on record"
                         : screen === "Profile"
                           ? "Your classroom identity"
-                          : "Class attendance – present list"}
+                          : screen === "Routine"
+                            ? "Your exact semester schedule"
+                            : "Class attendance – present list"}
                 </p>
               </div>
               {screen === "Report" ? (
@@ -397,6 +415,9 @@ export default function Classroom({
               )}
             </header>
             <div className="p-content">
+              {screen === "Routine" && (
+                <RoutineView date={date} setDate={setDate} enter={enter} />
+              )}
               {screen === "Subjects" && (
                 <>
                   <label className="p-date-control">
@@ -409,6 +430,14 @@ export default function Classroom({
                       onChange={(e) => setDate(e.target.value)}
                     />
                   </label>
+                  <button
+                    className="p-secondary r-routine-link"
+                    onClick={() => go("Routine")}
+                  >
+                    <CalendarDays size={18} />
+                    View weekly routine
+                    <ChevronRight size={16} />
+                  </button>
                   <div className="p-subjects-list">
                     {subjects.map(subjectCard)}
                   </div>
@@ -437,6 +466,13 @@ export default function Classroom({
                       <ChevronRight size={15} />
                     </button>
                   </label>
+                  <div className="r-attendance-meta">
+                    <span>{sub.teacher}</span>
+                    <small>
+                      <Clock3 size={13} />
+                      {subjectTime(sub.id, date)}
+                    </small>
+                  </div>
                   <div className={"p-live-banner " + (!open ? "closed" : "")}>
                     <span>
                       <i />
@@ -743,6 +779,10 @@ export default function Classroom({
                         </dd>
                       </div>
                       <div>
+                        <dt>Teacher</dt>
+                        <dd>{sub.teacher}</dd>
+                      </div>
+                      <div>
                         <dt>Section</dt>
                         <dd>A</dd>
                       </div>
@@ -752,7 +792,7 @@ export default function Classroom({
                       </div>
                       <div>
                         <dt>Time</dt>
-                        <dd>{sub.time}</dd>
+                        <dd>{subjectTime(sub.id, date)}</dd>
                       </div>
                     </dl>
                     <table>
@@ -860,7 +900,7 @@ export default function Classroom({
                     <span className="p-status present">
                       {isCR ? "Class Representative" : "Student"}
                     </span>
-                    <p>CSE 3rd Year · Section A</p>
+                    <p>CSE · 2nd Year · 2nd Semester</p>
                     {!isCR && <p>Roll: {current.roll}</p>}
                   </div>
                   <div className="p-profile-details">
@@ -870,11 +910,11 @@ export default function Classroom({
                     </div>
                     <div>
                       <span>Department</span>
-                      <strong>Computer Science</strong>
+                      <strong>Computer Science & Engineering</strong>
                     </div>
                     <div>
                       <span>Section</span>
-                      <strong>A · Class of 2027</strong>
+                      <strong>4th Semester · 2026</strong>
                     </div>
                     <div>
                       <span>Connection</span>
@@ -910,7 +950,7 @@ export default function Classroom({
               className={
                 screen === label ||
                 (label === "Subjects" &&
-                  ["Attendance", "Report"].includes(screen))
+                  ["Attendance", "Report", "Routine"].includes(screen))
                   ? "active"
                   : ""
               }

@@ -49,7 +49,7 @@ Firebase data paths:
 | sessions   | subject_YYYY-MM-DD     | subject, date, open              |
 | attendance | subject_YYYY-MM-DD_UID | studentId, subject, date, status |
 
-Subject definitions and classroom branding live in `src/main.jsx`. Date defaults to Asia/Dhaka. A closed request window rejects student writes at the database rules layer. Students can only request for themselves and cannot overwrite an approved present record. CRs approve or decline independently of the request window.
+Subjects, instructors and the exact Sunday–Thursday schedule live in `src/routine.js`; screen components live in `src/Classroom.jsx` and `src/RoutineView.jsx`. Date defaults to Asia/Dhaka. A closed request window rejects student writes at the database rules layer. Students can only request for themselves and cannot overwrite an approved present record. CRs approve or decline independently of the request window.
 
 ## Production build and hosting
 
@@ -71,3 +71,9 @@ Set Firebase environment variables at build time. This repository does not inclu
 Production build and dependency audit are run during implementation. Browser QA covers request submission, CR approval, request closure, roll marking, subject isolation and persistence. Live Firebase behavior requires a configured Firebase project; no claim of live database testing is made without one.
 
 Security rules reference: https://firebase.google.com/docs/firestore/security/rules-conditions
+
+## Supplied college routine
+
+Shyamoli Textile Engineering College, CSE 4th semester (2nd year, 2nd semester), 2026. Includes nine courses and labs, all assigned instructors, double-period labs, the 9:40–10:10 AM break, extracurricular periods and the source faculty key. The source’s fifth-period start says 11:50 PM; the app interprets it as 11:50 AM in this morning timetable. Friday and Saturday have no classes. Unscheduled subjects remain available for makeup attendance, clearly labelled as not scheduled.
+
+Run npm test to verify period coverage, lab spans, weekend behavior and instructor mappings. Deploy the updated firestore.rules to authorize the new course IDs. Older demo course records are retained separately and are not relabelled as the real courses.
