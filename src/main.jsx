@@ -170,6 +170,10 @@ export default function App() {
     : 0;
   async function mark(studentId, value) {
     try {
+      if (configured && !navigator.onLine)
+        throw new Error(
+          "You are offline. Connect to the internet before changing attendance.",
+        );
       const id = `${sid}_${studentId}`;
       const record = { studentId, subject, date, status: value };
       if (configured) await setDoc(doc(db, "attendance", id), record);
@@ -185,6 +189,10 @@ export default function App() {
   }
   async function toggle(subjectId = subject) {
     try {
+      if (configured && !navigator.onLine)
+        throw new Error(
+          "You are offline. Connect before changing the request window.",
+        );
       const targetId = sessionId(subjectId, date);
       const wasOpen = !!sessions[targetId]?.open;
       const value = { subject: subjectId, date, open: !wasOpen };
@@ -229,6 +237,8 @@ export default function App() {
     setNotice("Attendance report downloaded.");
   }
   async function bulkMark(ids, markRestAbsent = false) {
+    if (configured && !navigator.onLine)
+      throw new Error("You are offline. Connect before saving attendance.");
     const updates = students
       .filter((s) => markRestAbsent || ids.includes(s.id))
       .map((s) => ({

@@ -1,5 +1,25 @@
 # My Class Room
 
+## Installable PWA
+
+- Standalone web app manifest, purple graduation-cap icons (192/512px), a maskable icon and an Apple touch icon.
+- Profile includes Install App when the browser offers installation, with Safari/browser-menu instructions otherwise.
+- The production service worker precaches the app shell, routine, icons and all JavaScript/CSS chunks, including the PDF exporter. External fonts can fall back to system fonts offline.
+- New builds display an Update prompt; updates do not force a reload during attendance entry.
+- Offline status is displayed. Real Firebase attendance writes and request-window changes require a connection. Firebase responses are not cached by the service worker; this does not add offline authentication or shared attendance synchronization.
+- Demo records remain local to this browser/device.
+
+Test the production PWA locally:
+
+```sh
+npm run check:pwa
+npm run preview
+```
+
+The service worker is intentionally disabled in `npm run dev`. Install on a phone after deploying the production build to HTTPS hosting. Android: Chrome menu → Install app / Add to Home screen. iPhone: Safari → Share → Add to Home Screen. Localhost installation is for testing on the same computer; the localhost URL on your phone does not point to this PC.
+
+Run `npm run icons` to regenerate PNG icons from `public/favicon.svg`. Firebase Hosting includes no-cache headers for the worker and manifest so deployed updates can be discovered.
+
 A mobile-first attendance workspace for a class representative and students. Built with React, Vite, Firebase Authentication and Cloud Firestore. The purple mobile interface follows the supplied design reference with gradient controls, rounded cards, subject toggles and Home / Subjects / History / Profile navigation.
 
 ## Run locally

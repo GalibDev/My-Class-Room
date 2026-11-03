@@ -29,6 +29,7 @@ import {
 import "./purple.css";
 import { classesFor, subjectTime } from "./routine";
 import RoutineView from "./RoutineView";
+import { InstallApp } from "./PwaControls";
 
 const initials = (name) =>
   name
@@ -903,6 +904,7 @@ export default function Classroom({
                     <p>CSE · 2nd Year · 2nd Semester</p>
                     {!isCR && <p>Roll: {current.roll}</p>}
                   </div>
+                  <InstallApp />
                   <div className="p-profile-details">
                     <div>
                       <span>Classroom</span>

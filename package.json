@@ -7,7 +7,9 @@
     "test": "node --test",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "icons": "node scripts/generate-icons.mjs",
+    "check:pwa": "npm run build && node scripts/verify-pwa.mjs"
   },
   "keywords": [],
   "author": "",
@@ -25,8 +27,10 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.2.1",
     "prettier": "^3.9.10",
+    "sharp": "^0.35.5",
     "typescript": "^7.0.2",
-    "vite": "^8.3.5"
+    "vite": "^8.3.5",
+    "vite-plugin-pwa": "^2.0.0"
   },
   "overrides": {
     "@grpc/grpc-js": "^1.14.7"

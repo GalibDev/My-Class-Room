@@ -2,6 +2,16 @@
 
 Verified locally on 4 November 2026.
 
+## PWA verification
+
+- `npm run check:pwa` passes: standalone manifest, 192px/512px icon dimensions, maskable icon, 180px Apple touch icon, complete JS/CSS precache and worker update support.
+- `npm test` passes all four routine tests; production dependency audit reports zero vulnerabilities.
+- Opened production preview on port 4173; Profile displayed “App saved for offline use”.
+- Stopped that preview server, reloaded the page and opened Weekly Routine successfully from the service worker cache. Returned to the development preview after testing.
+- Production Profile screenshot: `screenshots/pwa-profile.jpg`.
+- Native Android/iPhone installation was not performed; browser-specific install guidance and install-event handling are included. Live Firebase behavior still requires the user's project configuration.
+- Development-only PWA build dependencies currently have transitive audit advisories; `npm audit fix` cannot resolve them without incompatible dependency changes. Production dependency audit is clean.
+
 ## Purple reference redesign
 
 - Home, subject controls, request review, student list, manual rolls, present card, history and profile screens implemented in the supplied reference's purple style.

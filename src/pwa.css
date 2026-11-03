@@ -1,0 +1,124 @@
+.pwa-banner {
+  position: fixed;
+  bottom: 89px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 28px);
+  max-width: 430px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 14px;
+  border: 1px solid #dbb8fa;
+  border-radius: 17px;
+  background: #fcf8ff;
+  box-shadow: 0 7px 25px #7029b22b;
+  color: #8a39cd;
+}
+.pwa-banner > svg {
+  flex-shrink: 0;
+}
+.pwa-banner > div {
+  flex: 1;
+  min-width: 0;
+}
+.pwa-banner strong {
+  font-size: 11px;
+  color: #673483;
+}
+.pwa-banner p {
+  font-size: 9px;
+  line-height: 1.6;
+  color: #a17cb5;
+  margin-top: 4px;
+}
+.pwa-banner > button:not(.pwa-close) {
+  background: linear-gradient(#a64af2, #7524cf);
+  border-radius: 10px;
+  color: #fff;
+  padding: 9px 11px;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.pwa-close {
+  padding: 2px;
+  color: #a881bd;
+}
+.pwa-install-card {
+  padding: 21px 18px;
+  border-radius: 19px;
+  background: linear-gradient(120deg, #f6ecff, #fffaff);
+  border: 1px solid #e4cef9;
+  margin: 20px 0;
+}
+.pwa-install-icon {
+  display: inline-flex;
+  color: #9b44e2;
+  background: #ecdcfc;
+  padding: 11px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+.pwa-install-card h2 {
+  font-size: 16px;
+  letter-spacing: -0.4px;
+}
+.pwa-install-card > p {
+  font-size: 11px;
+  line-height: 1.8;
+  margin-top: 10px;
+  color: #9773ac;
+}
+.pwa-install-card .p-primary {
+  margin-top: 17px;
+  min-height: 43px;
+  font-size: 12px;
+}
+.pwa-install-card > small {
+  display: block;
+  font-size: 9px;
+  line-height: 1.8;
+  color: #b296c5;
+  margin-top: 14px;
+}
+.pwa-instructions {
+  display: flex;
+  gap: 10px;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #9060ad;
+  background: #fff;
+  border: 1px solid #ecdef9;
+  padding: 13px;
+  border-radius: 12px;
+  margin-top: 16px;
+}
+.pwa-instructions > svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.pwa-error {
+  color: #b25d74 !important;
+}
+@media print {
+  .pwa-banner,
+  .pwa-install-card {
+    display: none !important;
+  }
+}
+@media (display-mode: standalone) {
+  .p-shell {
+    min-height: 100dvh;
+  }
+  .p-home-header {
+    padding-top: calc(23px + env(safe-area-inset-top));
+  }
+}
+.pwa-ready {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #648955 !important;
+  font-size: 10px !important;
+}
