@@ -2,6 +2,16 @@
 
 Verified locally on 4 November 2026.
 
+## Purple reference redesign
+
+- Home, subject controls, request review, student list, manual rolls, present card, history and profile screens implemented in the supplied reference's purple style.
+- Opened Discrete Mathematics from the subject toggle, submitted a student request, switched to CR, and approved that request.
+- Closed that subject's attendance window.
+- Bulk entered rolls 2301001, 2301002 and 2301004; confirmed 3 present and 9 absent.
+- Downloaded `present-CSE-203-2026-11-04.pdf` successfully from the present card.
+- PDF library loads on demand rather than in the initial app bundle.
+- Mobile screenshots saved alongside the source.
+
 - Production build: `npm run build` passes.
 - Production dependency audit: `npm audit --omit=dev` reports zero vulnerabilities.
 - Student requests: opening the Data Structures window enables its request button; submitting creates a pending request in the CR register.

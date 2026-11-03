@@ -1,6 +1,6 @@
 # My Class Room
 
-A mobile-first attendance workspace for a class representative and students. Built with React, Vite, Firebase Authentication and Cloud Firestore.
+A mobile-first attendance workspace for a class representative and students. Built with React, Vite, Firebase Authentication and Cloud Firestore. The purple mobile interface follows the supplied design reference with gradient controls, rounded cards, subject toggles and Home / Subjects / History / Profile navigation.
 
 ## Run locally
 
@@ -19,6 +19,9 @@ Open the URL printed by Vite. Without Firebase configuration the app runs in an 
 - Review pending requests and approve using Present, or decline using Absent.
 - Student profile with subject-wise attendance and date selection.
 - CSV download with date, subject, name, roll and attendance status.
+- Present Card with downloadable PDF and print layout.
+- Bulk roll entry: comma, space or newline separated rolls mark those students present and the remaining students absent. Unknown rolls are rejected before saving.
+- Student selection for bulk present marking; direct status buttons save immediately.
 - Responsive navigation, mobile layouts, accessible controls and persistent demo data.
 - Real accounts, realtime Firestore subscriptions and server-enforced role permissions when Firebase is configured.
 
