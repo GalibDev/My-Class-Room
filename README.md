@@ -40,10 +40,10 @@ firebase deploy --only firestore:rules
 
 Firebase data paths:
 
-| Collection | Document ID | Contents |
-| --- | --- | --- |
-| users | Auth UID | name, roll, role |
-| sessions | subject_YYYY-MM-DD | subject, date, open |
+| Collection | Document ID            | Contents                         |
+| ---------- | ---------------------- | -------------------------------- |
+| users      | Auth UID               | name, roll, role                 |
+| sessions   | subject_YYYY-MM-DD     | subject, date, open              |
 | attendance | subject_YYYY-MM-DD_UID | studentId, subject, date, status |
 
 Subject definitions and classroom branding live in `src/main.jsx`. Date defaults to Asia/Dhaka. A closed request window rejects student writes at the database rules layer. Students can only request for themselves and cannot overwrite an approved present record. CRs approve or decline independently of the request window.
