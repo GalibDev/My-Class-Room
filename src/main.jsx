@@ -381,6 +381,7 @@ export default function App() {
         setSubject,
         date,
         setDate,
+        today,
         status,
         mark,
         toggle,

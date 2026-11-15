@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 
 import "./purple.css";
-import { classesFor, subjectTime } from "./routine";
+import { classesFor, dayOf, subjectTime } from "./routine";
 import RoutineView from "./RoutineView";
 import { InstallApp } from "./PwaControls";
 
@@ -47,6 +47,7 @@ export default function Classroom({
   subject,
   setSubject,
   date,
+  today,
   setDate,
   status,
   mark,
@@ -338,7 +339,9 @@ export default function Classroom({
                 {isCR ? "Take Attendance" : "My Attendance"}
               </button>
               <div className="p-section-heading">
-                <h2>Today’s Classes</h2>
+                <h2>
+                  {date === today ? "Today’s Classes" : `${dayOf(date)} Classes`}
+                </h2>
                 <button onClick={() => go("Routine")}>Weekly Routine</button>
               </div>
               <div className="p-date-line">
